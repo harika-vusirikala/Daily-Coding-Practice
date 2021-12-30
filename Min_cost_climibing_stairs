@@ -1,0 +1,41 @@
+// Problem: https://leetcode.com/problems/min-cost-climbing-stairs/solution/
+// State variable: Current Step which is i
+// Intuition: To go to Step i, you have to come from either step i - 1 or step i - 2
+// Formula: dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i]
+// base case: dp[0] = dp[0], dp[1] = dp[1]
+class Solution {
+    // Solution 1:
+    // public int minCostClimbingStairs(int[] cost) {
+    //     int numStairs = cost.length;
+    //     int dp[] = new int[cost.length];
+    //     dp[0] = cost[0];
+    //     dp[1] = cost[1];
+    //     for(int i = 2; i < numStairs; i++) {
+    //         dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i];
+    //     }
+    //     // for( int i = 0; i < numStairs; i++) {
+    //     //     System.out.println(dp[i]);
+    //     // }
+    //     return Math.min(dp[numStairs - 1], dp[numStairs - 2]);
+    // }
+
+    // Solution 2
+    public int minCostClimbingStairs(int[] cost) {
+        int numStairs = cost.length;
+        int one = cost[0];
+        int two = cost[1];
+        int current;
+        
+        if(numStairs == 2) {
+            return Math.min(one, two);
+        }
+        
+        for(int i = 2; i < numStairs; i++) {
+            current = Math.min(one, two) + cost[i];
+            one = two;
+            two = current;
+        }
+        
+        return Math.min(one, two);
+    }
+}
