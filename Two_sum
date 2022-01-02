@@ -1,0 +1,15 @@
+// https://leetcode.com/problems/two-sum
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> reminder = new HashMap<>();
+        for(int i = 0; i < nums.length; i++) {
+            if(reminder.get(nums[i]) == null) {
+                reminder.put(target - nums[i], i);
+            } else {
+                int res[] = {reminder.get(nums[i]), i};
+                return res;
+            }
+        }
+        return null;
+    }
+}
