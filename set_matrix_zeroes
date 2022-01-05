@@ -1,0 +1,49 @@
+// https://leetcode.com/problems/set-matrix-zeroes
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int rows = matrix.length;
+        if(rows < 1) return;
+        int cols = matrix[0].length;
+        boolean isCol= false;
+        
+        // Iterate through each cell
+        for(int i = 0; i < rows; i++) {
+            // Check if any of the cells in first column are zero, set isCol to true
+            if(matrix[i][0] == 0) {
+                isCol = true;
+            }
+            
+            // Check if any of the other cells are zero. If so, set first cells in column and row to 0
+            for(int j = 1; j < cols; j++) {
+                if(matrix[i][j] == 0) {
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+        
+        // Check all the rows and columns except first row and column, 
+        // if first element of the row or column are zero, set the cell to zero.
+        for(int i = 1; i < rows; i++) {
+            for(int j = 1; j < cols; j++) {
+                if(matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        // If first element of the first row and column is zero, set first row to zero.
+        if(matrix[0][0] == 0) {
+            for(int i = 0; i < cols; i++) {
+                matrix[0][i] = 0;
+            }
+        }
+        
+        // If isCol set to true, set first column to zero.
+        if(isCol) {
+            for(int i = 0; i < rows; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+}
